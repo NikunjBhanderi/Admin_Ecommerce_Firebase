@@ -147,7 +147,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     Get.snackbar("$msg", "");
 
                     if (msg == "success") {
-                      Get.offAndToNamed('/bottom');
+                      Get.offAndToNamed('/home');
                     }
                   },
                   child: Container(
@@ -180,57 +180,57 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                   ),
                 ),
-                SizedBox(height: 15.sp),
-                InkWell(
-                  // onTap: () async {
-                  //   UserCredential user =
-                  //       await FireHelper.fireHelper.signInWithGoogle();
-                  //   // ignore: unnecessary_null_comparison
-                  //   if (user == null) {
-                  //     Get.snackbar("title", "message");
-                  //   } else {
-                  //     Get.offAndToNamed('/home');
-                  //   }
-                  // },
-                  child: Image.asset(
-                    "Assets/Images/Google1.png",
-                    height: 40.sp,
-                  ),
-                ),
-                SizedBox(height: 10.sp),
-                InkWell(
-                  // onTap: () async {
-                  //   UserCredential user =
-                  //       await FireHelper.fireHelper.signInWithGoogle();
-                  //   // ignore: unnecessary_null_comparison
-                  //   if (user == null) {
-                  //     Get.snackbar("title", "message");
-                  //   } else {
-                  //     Get.offAndToNamed('/home');
-                  //   }
-                  // },
-                  child: Image.asset(
-                    "Assets/Images/Facebook.png",
-                    height: 40.sp,
-                  ),
-                ),
-                SizedBox(height: 10.sp),
-                InkWell(
-                  // onTap: () async {
-                  //   UserCredential user =
-                  //       await FireHelper.fireHelper.signInWithGoogle();
-                  //   // ignore: unnecessary_null_comparison
-                  //   if (user == null) {
-                  //     Get.snackbar("title", "message");
-                  //   } else {
-                  //     Get.offAndToNamed('/home');
-                  //   }
-                  // },
-                  child: Image.asset(
-                    "Assets/Images/Twitter.png",
-                    height: 40.sp,
-                  ),
-                ),
+                // SizedBox(height: 15.sp),
+                // InkWell(
+                //   // onTap: () async {
+                //   //   UserCredential user =
+                //   //       await FireHelper.fireHelper.signInWithGoogle();
+                //   //   // ignore: unnecessary_null_comparison
+                //   //   if (user == null) {
+                //   //     Get.snackbar("title", "message");
+                //   //   } else {
+                //   //     Get.offAndToNamed('/home');
+                //   //   }
+                //   // },
+                //   child: Image.asset(
+                //     "Assets/Images/Google1.png",
+                //     height: 40.sp,
+                //   ),
+                // ),
+                // SizedBox(height: 10.sp),
+                // InkWell(
+                //   // onTap: () async {
+                //   //   UserCredential user =
+                //   //       await FireHelper.fireHelper.signInWithGoogle();
+                //   //   // ignore: unnecessary_null_comparison
+                //   //   if (user == null) {
+                //   //     Get.snackbar("title", "message");
+                //   //   } else {
+                //   //     Get.offAndToNamed('/home');
+                //   //   }
+                //   // },
+                //   child: Image.asset(
+                //     "Assets/Images/Facebook.png",
+                //     height: 40.sp,
+                //   ),
+                // ),
+                // SizedBox(height: 10.sp),
+                // InkWell(
+                //   // onTap: () async {
+                //   //   UserCredential user =
+                //   //       await FireHelper.fireHelper.signInWithGoogle();
+                //   //   // ignore: unnecessary_null_comparison
+                //   //   if (user == null) {
+                //   //     Get.snackbar("title", "message");
+                //   //   } else {
+                //   //     Get.offAndToNamed('/home');
+                //   //   }
+                //   // },
+                //   child: Image.asset(
+                //     "Assets/Images/Twitter.png",
+                //     height: 40.sp,
+                //   ),
+                // ),
               ],
             ),
           ),

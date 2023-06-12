@@ -17,7 +17,7 @@ class _SplesScreenState extends State<SplesScreen> {
       Duration(seconds: 3),
       () {
         FirebaseHelper.firebaseHelper.checkLogin() == true
-            ? Get.offAndToNamed('/bottom')
+            ? Get.offAndToNamed('/home')
             : Get.offAndToNamed('/signIn');
       },
     );

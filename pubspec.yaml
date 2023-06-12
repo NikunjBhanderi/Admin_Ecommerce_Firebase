@@ -40,6 +40,8 @@ dependencies:
   firebase_auth: ^4.6.2
   sizer: ^2.0.15
   cloud_firestore: ^4.8.0
+  image_picker: ^0.8.8
+  image_to_byte: ^1.0.0
 
 dev_dependencies:
   flutter_test:

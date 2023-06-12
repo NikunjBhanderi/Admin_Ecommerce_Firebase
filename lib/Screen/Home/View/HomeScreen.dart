@@ -143,9 +143,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               itemBuilder: (context, index) {
                                 return InkWell(
                                   onTap: () {
-
-
-
                                     if (homeControllor
                                             .DataList[index].isButton ==
                                         true) {
@@ -171,7 +168,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                             .DataList[index].stoke,
                                       );
 
-                                      homeControllor.DataList[index].isButton = true;
+                                      homeControllor.DataList[index].isButton =
+                                          true;
                                       Get.toNamed('/show',
                                           arguments: homeModel);
                                     }
@@ -278,6 +276,11 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Get.toNamed('/addData');
+          },
         ),
       ),
     );

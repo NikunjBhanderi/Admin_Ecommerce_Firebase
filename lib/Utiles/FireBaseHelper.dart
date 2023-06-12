@@ -45,10 +45,12 @@ class FirebaseHelper {
 
   bool checkLogin() {
     User? user = firebaseAuth.currentUser;
-    if (user!.uid == null) {
-      return false;
-    } else {
+
+    var uid = user?.uid;
+    if (uid != null) {
       return true;
+    } else {
+      return false;
     }
   }
 
@@ -60,7 +62,7 @@ class FirebaseHelper {
 
   // database
 
-  Future<void> insertProduct({
+  Future<String> insertProduct({
     required name,
     required price,
     required desc,
@@ -69,7 +71,7 @@ class FirebaseHelper {
     required brand,
     required image,
   }) async {
-    await firebaseFirestore.collection("product").add(
+    return await firebaseFirestore.collection("product").add(
       {
         "name": name,
         "price": price,
@@ -79,7 +81,11 @@ class FirebaseHelper {
         "brand": brand,
         "image": image,
       },
-    );
+    ).then((value) {
+      return "success";
+    }).catchError((e) {
+      return "$e";
+    });
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> readProduct() {
