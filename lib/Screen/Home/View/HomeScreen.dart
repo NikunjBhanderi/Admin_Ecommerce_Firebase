@@ -52,8 +52,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ],
                   ),
-                  CircleAvatar(
-                    backgroundColor: Colors.pink,
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed('/profile');
+                    },
+                    child: CircleAvatar(
+                      backgroundColor: Colors.pink,
+                    ),
                   ),
                 ],
               ),
@@ -126,6 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           image: x['image'],
                           key: x.id,
                           isButton: false,
+                          isLike: false,
                         );
 
                         homeControllor.DataList.add(homeModel);
@@ -137,42 +143,44 @@ class _HomeScreenState extends State<HomeScreen> {
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
-                                mainAxisExtent: 175.sp,
+                                mainAxisExtent: 200.sp,
                               ),
                               itemCount: homeControllor.DataList.length,
                               itemBuilder: (context, index) {
                                 return InkWell(
                                   onTap: () {
-                                    if (homeControllor
-                                            .DataList[index].isButton ==
-                                        true) {
-                                      Get.snackbar(
-                                          "You Have Already Click One Time",
-                                          "message");
-                                    } else {
-                                      HomeModel homeModel = HomeModel(
-                                        key: homeControllor.DataList[index].key,
-                                        image: homeControllor
-                                            .DataList[index].image,
-                                        name:
-                                            homeControllor.DataList[index].name,
-                                        brand: homeControllor
-                                            .DataList[index].brand,
-                                        desc:
-                                            homeControllor.DataList[index].desc,
-                                        price: homeControllor
-                                            .DataList[index].price,
-                                        rate:
-                                            homeControllor.DataList[index].rate,
-                                        stoke: homeControllor
-                                            .DataList[index].stoke,
-                                      );
-
-                                      homeControllor.DataList[index].isButton =
-                                          true;
-                                      Get.toNamed('/show',
-                                          arguments: homeModel);
-                                    }
+                                    // if (homeControllor
+                                    //         .DataList[index].isButton ==
+                                    //     true) {
+                                    //   Get.snackbar(
+                                    //       "You Have Already Click One Time",
+                                    //       "message");
+                                    // } else {
+                                    //   HomeModel homeModel = HomeModel(
+                                    //     key: homeControllor.DataList[index].key,
+                                    //     image: homeControllor
+                                    //         .DataList[index].image,
+                                    //     name:
+                                    //         homeControllor.DataList[index].name,
+                                    //     brand: homeControllor
+                                    //         .DataList[index].brand,
+                                    //     desc:
+                                    //         homeControllor.DataList[index].desc,
+                                    //     price: homeControllor
+                                    //         .DataList[index].price,
+                                    //     rate:
+                                    //         homeControllor.DataList[index].rate,
+                                    //     stoke: homeControllor
+                                    //         .DataList[index].stoke,
+                                    //   );
+                                    //
+                                    //   homeControllor.DataList[index].isButton =
+                                    //       true;
+                                    //   Get.toNamed('/show',
+                                    //       arguments: homeModel);
+                                    // }
+                                    print(
+                                        "${homeControllor.DataList[index].key}");
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
@@ -194,13 +202,49 @@ class _HomeScreenState extends State<HomeScreen> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text(
-                                            "⭐️ ${homeControllor.DataList[index].rate}",
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                "⭐️ ${homeControllor.DataList[index].rate}",
+                                              ),
+                                              IconButton(
+                                                onPressed: () {
+                                                  setState(() {
+                                                    homeControllor
+                                                            .isLike.value =
+                                                        !homeControllor
+                                                            .isLike.value;
+                                                    homeControllor
+                                                            .DataList[index]
+                                                            .isLike =
+                                                        homeControllor
+                                                            .isLike.value;
+                                                  });
+
+                                                  print(homeControllor
+                                                      .isLike.value);
+                                                  print(
+                                                      "${homeControllor.DataList[index].isLike}---------------${index}");
+                                                },
+                                                icon: Icon(
+                                                  homeControllor.DataList[index]
+                                                              .isLike ==
+                                                          true
+                                                      ? Icons.favorite
+                                                      : Icons.favorite_border,
+                                                  color: Colors.pink,
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                          Container(
-                                            height: 60.sp,
-                                            child: Image.network(
-                                                "${homeControllor.DataList[index].image}"),
+                                          Center(
+                                            child: Container(
+                                              height: 80.sp,
+                                              child: Image.network(
+                                                  "${homeControllor.DataList[index].image}"),
+                                            ),
                                           ),
                                           Container(
                                             height: 20.sp,
@@ -213,7 +257,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                               ),
                                             ),
                                           ),
-                                          SizedBox(height: 5.sp),
                                           Container(
                                             height: 10.sp,
                                             child: Text(
@@ -224,7 +267,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               ),
                                             ),
                                           ),
-                                          SizedBox(height: 15.sp),
+                                          SizedBox(height: 5.sp),
                                           Container(
                                             height: 30,
                                             child: Row(

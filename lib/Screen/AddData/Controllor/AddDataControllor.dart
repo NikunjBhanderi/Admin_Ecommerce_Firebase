@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:admin_ecommerce_firebase/Utiles/FireBaseHelper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -29,4 +31,6 @@ class AddDataControllor extends GetxController {
       image: image,
     );
   }
+
+  Uint8List? imageBytes;
 }

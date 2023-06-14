@@ -1,12 +1,7 @@
-import 'dart:html';
-import 'dart:math';
-import 'dart:typed_data';
-
 import 'package:admin_ecommerce_firebase/Screen/AddData/Controllor/AddDataControllor.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:image_to_byte/image_to_byte.dart';
 import 'package:sizer/sizer.dart';
 
 class AddDataScreen extends StatefulWidget {
@@ -42,13 +37,9 @@ class _AddDataScreenState extends State<AddDataScreen> {
                   onPressed: () async {
                     ImagePicker imagePiker = ImagePicker();
                     XFile? xfile =
-                          await imagePiker.pickImage(source: ImageSource.gallery);
+                        await imagePiker.pickImage(source: ImageSource.gallery);
 
-                    String image = xfile!.path;
-
-                    // Uint8List imagebytes = await imagefile.readAsBytes();
-
-                    print("---------------------------${xfile.path}");
+                    String image1 = xfile!.path;
                   },
                   child: Text(
                     "Image",

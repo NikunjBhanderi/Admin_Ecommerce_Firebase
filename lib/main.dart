@@ -1,8 +1,10 @@
 import 'package:admin_ecommerce_firebase/Screen/AddData/View/AddDataScreen.dart';
 import 'package:admin_ecommerce_firebase/Screen/Home/View/HomeScreen.dart';
+import 'package:admin_ecommerce_firebase/Screen/Profile/View/ProfileScreen.dart';
 import 'package:admin_ecommerce_firebase/Screen/SignIn/View/SignInScreen.dart';
 import 'package:admin_ecommerce_firebase/Screen/SignUp/View/SignUpScreen.dart';
 import 'package:admin_ecommerce_firebase/Screen/Sples/View/SplesScreen.dart';
+import 'package:admin_ecommerce_firebase/Screen/UpdateProfile/View/UpdateProfileScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -36,6 +38,14 @@ Future<void> main() async {
           GetPage(
             name: '/addData',
             page: () => AddDataScreen(),
+          ),
+          GetPage(
+            name: '/profile',
+            page: () => ProfileScreen(),
+          ),
+          GetPage(
+            name: '/updateProfile',
+            page: () => UpdateProfileScreen(),
           ),
         ],
       ),

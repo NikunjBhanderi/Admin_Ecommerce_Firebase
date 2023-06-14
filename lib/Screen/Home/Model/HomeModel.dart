@@ -2,7 +2,7 @@ class HomeModel {
   String? brand, desc, image, name, key;
   int? price, stoke;
   double? rate;
-  bool? isButton;
+  bool? isButton, isLike;
 
   HomeModel({
     this.brand,
@@ -14,5 +14,6 @@ class HomeModel {
     this.rate,
     this.stoke,
     this.key,
+    this.isLike,
   });
 }

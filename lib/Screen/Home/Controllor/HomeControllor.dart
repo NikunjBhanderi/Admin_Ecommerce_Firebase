@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 class HomeControllor extends GetxController {
   RxMap userDetail = {}.obs;
   List<HomeModel> DataList = [];
+  RxBool isLike = false.obs;
 
   Stream<QuerySnapshot<Map<String, dynamic>>> readData() {
     return FirebaseHelper.firebaseHelper.readProduct();
