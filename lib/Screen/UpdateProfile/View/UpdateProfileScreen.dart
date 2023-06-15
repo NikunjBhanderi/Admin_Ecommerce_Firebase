@@ -239,8 +239,6 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                           types: updateProfileControllor.adminUser.value,
                           name: updateProfileControllor.txtName.text,
                         );
-
-                        print(u1);
                         String msg = await FirebaseHelper.firebaseHelper
                             .insertProfileData(
                           types: u1.types,
@@ -251,20 +249,15 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                           name: u1.name,
                         );
 
-                        print(msg);
+                        print("=============================$msg");
 
                         if (msg == "success") {
-                          Get.snackbar(
-                            "$msg",
-                            "",
-                          );
                           Get.back();
-                        } else {
-                          Get.snackbar(
-                            "$msg",
-                            "",
-                          );
                         }
+                        Get.snackbar(
+                          "$msg",
+                          "",
+                        );
                       },
                       child: Container(
                         height: 30.sp,

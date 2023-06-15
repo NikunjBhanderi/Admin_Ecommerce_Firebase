@@ -116,6 +116,7 @@ class FirebaseHelper {
     required mobile,
     required types,
   }) async {
+    print(findFcmKey());
     return await firebaseFirestore
         .collection("cart")
         .doc(FindUid())
@@ -128,12 +129,11 @@ class FirebaseHelper {
         "mobile": mobile,
         "email": email,
         "types": types,
-        "fcmKey": findFcmKey(),
+        "fcmKey": await findFcmKey(),
       },
     ).then((value) {
       return "success";
     }).catchError((e) {
-      print(e);
       return "Failed";
     });
   }
