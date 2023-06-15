@@ -148,6 +148,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               itemCount: homeControllor.DataList.length,
                               itemBuilder: (context, index) {
                                 return InkWell(
+                                  // onLongPress: () {
+                                  //   Get.toNamed('/updateProfile');
+                                  // },
                                   onTap: () {
                                     // if (homeControllor
                                     //         .DataList[index].isButton ==

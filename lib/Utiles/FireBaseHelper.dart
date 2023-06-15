@@ -2,6 +2,7 @@ import 'package:admin_ecommerce_firebase/Screen/Home/Model/HomeModel.dart';
 import 'package:admin_ecommerce_firebase/Screen/UpdateProfile/Modle/UpdateModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 
 class FirebaseHelper {
@@ -11,6 +12,7 @@ class FirebaseHelper {
 
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+  FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
 
   // login
 
@@ -62,10 +64,16 @@ class FirebaseHelper {
     Get.offAndToNamed('signIn');
   }
 
+  // Find Method
   String FindUid() {
     User? user = firebaseAuth.currentUser;
     var uid = user!.uid;
     return uid;
+  }
+
+  Future<String> findFcmKey() async {
+    var fcmKey = await firebaseMessaging.getToken();
+    return fcmKey!;
   }
 
   // database
@@ -100,23 +108,34 @@ class FirebaseHelper {
     return firebaseFirestore.collection("product").snapshots();
   }
 
-  Future<void> insertProfileData({
-    required UpdateModel u1,
+  Future<String> insertProfileData({
+    required name,
+    required surname,
+    required job,
+    required email,
+    required mobile,
+    required types,
   }) async {
-    await firebaseFirestore
+    return await firebaseFirestore
         .collection("cart")
         .doc(FindUid())
         .collection("detail")
         .add(
       {
-        "name": u1.name,
-        "surname": u1.surname,
-        "jon": u1.job,
-        "mobile": u1.mobile,
-        "email": u1.email,
-        "types": u1.types,
+        "name": name,
+        "surname": surname,
+        "job": job,
+        "mobile": mobile,
+        "email": email,
+        "types": types,
+        "fcmKey": findFcmKey(),
       },
-    );
+    ).then((value) {
+      return "success";
+    }).catchError((e) {
+      print(e);
+      return "Failed";
+    });
   }
 
   Stream<DocumentSnapshot<Map<String, dynamic>>> readProfileData({

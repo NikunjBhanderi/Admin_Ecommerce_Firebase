@@ -1,5 +1,5 @@
 class UpdateModel {
-  String? name, surname, job, mobile, email, types,key;
+  String? name, surname, job, mobile, email, types, key, fcmKey;
 
   UpdateModel({
     this.name,
@@ -8,6 +8,7 @@ class UpdateModel {
     this.mobile,
     this.email,
     this.types,
-    this.key
+    this.key,
+    this.fcmKey,
   });
 }
