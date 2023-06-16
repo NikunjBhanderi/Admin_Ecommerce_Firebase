@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:admin_ecommerce_firebase/Screen/Home/Controllor/HomeControllor.dart';
 import 'package:admin_ecommerce_firebase/Screen/Home/Model/HomeModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -132,6 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           key: x.id,
                           isButton: false,
                           isLike: false,
+                          status: 0,
                         );
 
                         homeControllor.DataList.add(homeModel);
@@ -148,40 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               itemCount: homeControllor.DataList.length,
                               itemBuilder: (context, index) {
                                 return InkWell(
-                                  // onLongPress: () {
-                                  //   Get.toNamed('/updateProfile');
-                                  // },
                                   onTap: () {
-                                    // if (homeControllor
-                                    //         .DataList[index].isButton ==
-                                    //     true) {
-                                    //   Get.snackbar(
-                                    //       "You Have Already Click One Time",
-                                    //       "message");
-                                    // } else {
-                                    //   HomeModel homeModel = HomeModel(
-                                    //     key: homeControllor.DataList[index].key,
-                                    //     image: homeControllor
-                                    //         .DataList[index].image,
-                                    //     name:
-                                    //         homeControllor.DataList[index].name,
-                                    //     brand: homeControllor
-                                    //         .DataList[index].brand,
-                                    //     desc:
-                                    //         homeControllor.DataList[index].desc,
-                                    //     price: homeControllor
-                                    //         .DataList[index].price,
-                                    //     rate:
-                                    //         homeControllor.DataList[index].rate,
-                                    //     stoke: homeControllor
-                                    //         .DataList[index].stoke,
-                                    //   );
-                                    //
-                                    //   homeControllor.DataList[index].isButton =
-                                    //       true;
-                                    //   Get.toNamed('/show',
-                                    //       arguments: homeModel);
-                                    // }
                                     print(
                                         "${homeControllor.DataList[index].key}");
                                   },
@@ -245,8 +215,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                           Center(
                                             child: Container(
                                               height: 80.sp,
-                                              child: Image.network(
-                                                  "${homeControllor.DataList[index].image}"),
+                                              child: Image.memory(
+                                                  Uint8List.fromList(
+                                                      homeControllor
+                                                          .DataList[index]
+                                                          .image!
+                                                          .codeUnits)),
                                             ),
                                           ),
                                           Container(
@@ -286,17 +260,50 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     color: Colors.black,
                                                   ),
                                                 ),
-                                                Container(
-                                                  height: 30.sp,
-                                                  width: 30.sp,
-                                                  decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    color: Colors.pink,
-                                                  ),
-                                                  alignment: Alignment.center,
-                                                  child: Icon(
-                                                    Icons.add,
-                                                    color: Colors.white,
+                                                InkWell(
+                                                  onTap: () {
+                                                    HomeModel h1 = HomeModel(
+                                                      key: homeControllor
+                                                          .DataList[index].key,
+                                                      name: homeControllor
+                                                          .DataList[index].name,
+                                                      image: homeControllor
+                                                          .DataList[index]
+                                                          .image,
+                                                      desc: homeControllor
+                                                          .DataList[index].desc,
+                                                      price: homeControllor
+                                                          .DataList[index]
+                                                          .price,
+                                                      rate: homeControllor
+                                                          .DataList[index].rate,
+                                                      brand: homeControllor
+                                                          .DataList[index]
+                                                          .brand,
+                                                      stoke: homeControllor
+                                                          .DataList[index]
+                                                          .stoke,
+                                                      status: 1,
+                                                    );
+
+                                                    Get.toNamed(
+                                                      '/addData',
+                                                      arguments: h1,
+                                                    );
+                                                  },
+                                                  child: Container(
+                                                    height: 30.sp,
+                                                    width: 30.sp,
+                                                    decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      color: Colors.pink,
+                                                    ),
+                                                    alignment: Alignment.center,
+                                                    child: Icon(
+                                                      Icons.edit,
+                                                      color: Colors.white,
+                                                      size: 10.sp,
+                                                    ),
                                                   ),
                                                 ),
                                               ],
@@ -312,7 +319,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ],
                       );
-                      // return Text("123");
                     }
                     return Center(
                       child: CircularProgressIndicator(),
@@ -324,8 +330,15 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
           onPressed: () {
-            Get.toNamed('/addData');
+            HomeModel h1 = HomeModel(
+              status: 0,
+            );
+            Get.toNamed(
+              '/addData',
+              arguments: h1,
+            );
           },
         ),
       ),

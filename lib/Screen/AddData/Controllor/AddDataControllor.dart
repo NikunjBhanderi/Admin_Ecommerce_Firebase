@@ -33,4 +33,5 @@ class AddDataControllor extends GetxController {
   }
 
   Uint8List? imageBytes;
+  RxString ipath = "".obs;
 }

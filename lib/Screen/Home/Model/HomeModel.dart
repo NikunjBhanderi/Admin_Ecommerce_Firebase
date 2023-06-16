@@ -1,6 +1,6 @@
 class HomeModel {
   String? brand, desc, image, name, key;
-  int? price, stoke;
+  int? price, stoke, status;
   double? rate;
   bool? isButton, isLike;
 
@@ -15,5 +15,6 @@ class HomeModel {
     this.stoke,
     this.key,
     this.isLike,
+    this.status,
   });
 }

@@ -103,6 +103,33 @@ class FirebaseHelper {
     });
   }
 
+  Future<String> updateProduct({
+    required name,
+    required price,
+    required desc,
+    required rate,
+    required stoke,
+    required brand,
+    required image,
+    required key,
+  }) async {
+    return await firebaseFirestore.collection("product").doc(key).set(
+      {
+        "name": name,
+        "price": price,
+        "desc": desc,
+        "rate": rate,
+        "stoke": stoke,
+        "brand": brand,
+        "image": image,
+      },
+    ).then((value) {
+      return "success";
+    }).catchError((e) {
+      return "$e";
+    });
+  }
+
   Stream<QuerySnapshot<Map<String, dynamic>>> readProduct() {
     return firebaseFirestore.collection("product").snapshots();
   }
