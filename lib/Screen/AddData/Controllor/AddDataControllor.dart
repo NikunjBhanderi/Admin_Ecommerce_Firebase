@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:admin_ecommerce_firebase/Screen/Home/Model/HomeModel.dart';
 import 'package:admin_ecommerce_firebase/Utiles/FireBaseHelper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -29,6 +30,14 @@ class AddDataControllor extends GetxController {
       stoke: stoke,
       brand: brand,
       image: image,
+    );
+  }
+
+  Future<String> updateProduct({
+    required HomeModel h1,
+  }) async {
+    return await FirebaseHelper.firebaseHelper.updateProduct(
+      h1: h1,
     );
   }
 

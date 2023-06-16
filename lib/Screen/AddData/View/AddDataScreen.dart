@@ -102,6 +102,7 @@ class _AddDataScreenState extends State<AddDataScreen> {
                   ),
                   SizedBox(height: 10.sp),
                   TextField(
+                    keyboardType: TextInputType.number,
                     controller: addDataControllor.txtPrice,
                     decoration: InputDecoration(
                       label: Text("Enter Product Price"),
@@ -200,6 +201,28 @@ class _AddDataScreenState extends State<AddDataScreen> {
                   InkWell(
                     onTap: () async {
                       if (h1.status == 1) {
+
+                        print(h1.key);
+                        HomeModel homeModel = HomeModel(
+                          stoke:
+                              int.parse("${addDataControllor.txtStoke.text}"),
+                          brand: addDataControllor.txtBrande.text,
+                          rate:
+                              double.parse("${addDataControllor.txtRate.text}"),
+                          price: int.parse("${addDataControllor.txtRate.text}"),
+                          desc: addDataControllor.txtDesc.text,
+                          image: addDataControllor.ipath.value,
+                          name: addDataControllor.txtName.text,
+                          key: h1.key,
+                        );
+                        print(homeModel.key);
+                        String msg = await addDataControllor.updateProduct(
+                          h1: homeModel,
+                        );
+
+                        Get.snackbar("$msg", "");
+
+                        Get.back();
                       } else {
                         String msg = await addDataControllor.insertProduct(
                           name: addDataControllor.txtName.text,

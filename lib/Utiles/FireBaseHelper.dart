@@ -1,3 +1,4 @@
+import 'package:admin_ecommerce_firebase/Screen/Home/Model/HomeModel.dart';
 import 'package:admin_ecommerce_firebase/Screen/UpdateProfile/Modle/UpdateModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -104,24 +105,17 @@ class FirebaseHelper {
   }
 
   Future<String> updateProduct({
-    required name,
-    required price,
-    required desc,
-    required rate,
-    required stoke,
-    required brand,
-    required image,
-    required key,
+    required HomeModel h1,
   }) async {
-    return await firebaseFirestore.collection("product").doc(key).set(
+    return await firebaseFirestore.collection("product").doc(h1.key).set(
       {
-        "name": name,
-        "price": price,
-        "desc": desc,
-        "rate": rate,
-        "stoke": stoke,
-        "brand": brand,
-        "image": image,
+        "name": h1.name,
+        "price": h1.price,
+        "desc": h1.desc,
+        "rate": h1.rate,
+        "stoke": h1.stoke,
+        "brand": h1.brand,
+        "image": h1.image,
       },
     ).then((value) {
       return "success";
