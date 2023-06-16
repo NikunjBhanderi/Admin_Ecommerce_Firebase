@@ -11,11 +11,19 @@ class UpdateProfileControllor extends GetxController {
   TextEditingController txtEmailId = TextEditingController();
   RxString adminUser = "admin".obs;
 
-  // Future<String> insertProfile({
-  //   required UpdateModel u1,
-  // }) async {
-  //   return await FirebaseHelper.firebaseHelper.insertProfileData(
-  //     u1: u1,
-  //   );
-  // }
+  Future<String> insertProfile({
+    required UpdateModel u1,
+  }) async {
+    return await FirebaseHelper.firebaseHelper.insertProfileData(
+      u1: u1,
+    );
+  }
+
+  Future<String> updateProfile({
+    required UpdateModel u1,
+  }) {
+    return FirebaseHelper.firebaseHelper.updateProfile(
+      u1: u1,
+    );
+  }
 }

@@ -1,4 +1,3 @@
-import 'package:admin_ecommerce_firebase/Screen/Home/Model/HomeModel.dart';
 import 'package:admin_ecommerce_firebase/Screen/UpdateProfile/Modle/UpdateModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -109,12 +108,7 @@ class FirebaseHelper {
   }
 
   Future<String> insertProfileData({
-    required name,
-    required surname,
-    required job,
-    required email,
-    required mobile,
-    required types,
+    required UpdateModel u1,
   }) async {
     print(findFcmKey());
     return await firebaseFirestore
@@ -123,12 +117,12 @@ class FirebaseHelper {
         .collection("detail")
         .add(
       {
-        "name": name,
-        "surname": surname,
-        "job": job,
-        "mobile": mobile,
-        "email": email,
-        "types": types,
+        "name": u1.name,
+        "surname": u1.surname,
+        "job": u1.job,
+        "mobile": u1.mobile,
+        "email": u1.email,
+        "types": u1.types,
         "fcmKey": await findFcmKey(),
       },
     ).then((value) {
@@ -138,14 +132,36 @@ class FirebaseHelper {
     });
   }
 
-  Stream<DocumentSnapshot<Map<String, dynamic>>> readProfileData({
-    required UpdateModel u1,
-  }) {
+  Stream<QuerySnapshot<Map<String, dynamic>>> readProfileData() {
     return firebaseFirestore
         .collection("cart")
         .doc(FindUid())
         .collection("detail")
-        .doc(u1.key)
         .snapshots();
+  }
+
+  Future<String> updateProfile({
+    required UpdateModel u1,
+  }) async {
+    return await firebaseFirestore
+        .collection("cart")
+        .doc(FindUid())
+        .collection("detail")
+        .doc(u1.key)
+        .set(
+      {
+        "name": u1.name,
+        "surname": u1.surname,
+        "job": u1.job,
+        "mobile": u1.mobile,
+        "email": u1.email,
+        "types": u1.types,
+        "fcmKey": await findFcmKey(),
+      },
+    ).then((value) {
+      return "success";
+    }).catchError((e) {
+      return "Failed";
+    });
   }
 }

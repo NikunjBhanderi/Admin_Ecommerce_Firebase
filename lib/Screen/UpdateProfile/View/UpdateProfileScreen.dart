@@ -17,6 +17,26 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
     UpdateProfileControllor(),
   );
 
+  UpdateModel u1 = Get.arguments;
+
+  @override
+  void initState() {
+    super.initState();
+
+    updateProfileControllor.txtName =
+        TextEditingController(text: u1 == null ? "" : "${u1.name}");
+    updateProfileControllor.txtSurname =
+        TextEditingController(text: u1 == null ? "" : "${u1.surname}");
+    updateProfileControllor.txtEmailId =
+        TextEditingController(text: u1 == null ? "" : "${u1.email}");
+    updateProfileControllor.txtJob =
+        TextEditingController(text: u1 == null ? "" : "${u1.job}");
+    updateProfileControllor.txtMobileNo =
+        TextEditingController(text: u1 == null ? "" : "${u1.mobile}");
+    updateProfileControllor.adminUser.value =
+        u1 == null ? "admin" : "${u1.types}";
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -205,59 +225,87 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                       ),
                     ),
                     SizedBox(height: 10.sp),
-                    Obx(
-                      () => DropdownButton(
-                        value: updateProfileControllor.adminUser.value,
-                        isExpanded: true,
-                        items: [
-                          DropdownMenuItem(
-                            child: Text(
-                              "Admin",
-                            ),
-                            value: "admin",
-                          ),
-                          DropdownMenuItem(
-                            child: Text(
-                              "User",
-                            ),
-                            value: "user",
-                          ),
-                        ],
-                        onChanged: (value) {
-                          updateProfileControllor.adminUser.value = value!;
-                        },
-                      ),
-                    ),
+                    // Obx(
+                    //   () => DropdownButton(
+                    //     value: updateProfileControllor.adminUser.value,
+                    //     isExpanded: true,
+                    //     items: [
+                    //       DropdownMenuItem(
+                    //         child: Text(
+                    //           "Admin",
+                    //         ),
+                    //         value: "admin",
+                    //       ),
+                    //       DropdownMenuItem(
+                    //         child: Text(
+                    //           "User",
+                    //         ),
+                    //         value: "user",
+                    //       ),
+                    //     ],
+                    //     onChanged: (value) {
+                    //       updateProfileControllor.adminUser.value = value!;
+                    //     },
+                    //   ),
+                    // ),
                     SizedBox(height: 20.sp),
                     InkWell(
                       onTap: () async {
-                        UpdateModel u1 = UpdateModel(
-                          surname: updateProfileControllor.txtSurname.text,
-                          mobile: updateProfileControllor.txtMobileNo.text,
-                          job: updateProfileControllor.txtJob.text,
-                          email: updateProfileControllor.txtEmailId.text,
-                          types: updateProfileControllor.adminUser.value,
-                          name: updateProfileControllor.txtName.text,
-                        );
-                        String msg = await FirebaseHelper.firebaseHelper
-                            .insertProfileData(
-                          types: u1.types,
-                          email: u1.email,
-                          job: u1.job,
-                          mobile: u1.mobile,
-                          surname: u1.surname,
-                          name: u1.name,
-                        );
+                        if (u1 == null) {
+                          UpdateModel userModel = UpdateModel(
+                            surname: updateProfileControllor.txtSurname.text,
+                            mobile: updateProfileControllor.txtMobileNo.text,
+                            job: updateProfileControllor.txtJob.text,
+                            email: updateProfileControllor.txtEmailId.text,
+                            types: updateProfileControllor.adminUser.value,
+                            name: updateProfileControllor.txtName.text,
+                          );
 
-                        print("=============================$msg");
+                          String msg =
+                              await updateProfileControllor.insertProfile(
+                            u1: userModel,
+                          );
 
-                        if (msg == "success") {
-                          Get.back();
+                          if (msg == "success") {
+                            Get.back();
+                          }
+                          Get.snackbar(
+                            "$msg",
+                            "",
+                          );
+                        } else {
+                          print(u1.key);
+                          UpdateModel userModel = UpdateModel(
+                            surname: updateProfileControllor.txtSurname.text,
+                            mobile: updateProfileControllor.txtMobileNo.text,
+                            job: updateProfileControllor.txtJob.text,
+                            email: updateProfileControllor.txtEmailId.text,
+                            types: updateProfileControllor.adminUser.value,
+                            name: updateProfileControllor.txtName.text,
+                            key: u1.key,
+                          );
+
+                          String msg =
+                              await updateProfileControllor.updateProfile(
+                            u1: userModel,
+                          );
+
+                          if (msg == "success") {
+                            Get.back();
+                          }
+                          Get.snackbar(
+                            "$msg",
+                            "",
+                          );
                         }
-                        Get.snackbar(
-                          "$msg",
-                          "",
-                        );
+
+                        // String msg =
+                        //     await updateProfileControllor.insertProfile(
+                        //   u1: u1,
+                        // );
+                        //
+                        // print("=============================$msg");
+                        //
                       },
                       child: Container(
                         height: 30.sp,
